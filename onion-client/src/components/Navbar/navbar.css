@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilos personalizados para o Navbar usando Tailwind */
+.navbar{
+    @apply w-full p-2 border-b border-solid bg-black;
+    border-color: rgb(223, 217, 217);
+}
+
+.navbar-container {
+    @apply flex justify-start items-center;
+}
+ .navbar-image {
+    @apply relative flex-none ml-2;
+    height: 50px;
+    width: 50px;
+}
+
+.navbar-title {
+    @apply text-white mr-6 text-pink font-bold text-lg font-mono;
+}
+.navbar-links {
+    @apply  flex-none space-x-4 flex;
+}
+.navbar-link {
+    @apply text-white hover:text-pink;
+}

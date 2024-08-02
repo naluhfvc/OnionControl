@@ -1,11 +1,11 @@
+import React from "react";
+import Navbar from "./components/Navbar/Navbar";
 
-function App() {
-
-  return (
-    <>
-     
-    </>
-  )
-}
-
-export default App
+const App = () => {
+    return (
+        <div className="container min-w-full">
+            <Navbar/>
+        </div>
+    );
+};
+export default App;

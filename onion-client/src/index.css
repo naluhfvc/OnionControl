@@ -1,3 +1,14 @@
-.color-theme {
-  color: '#e12c9e';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
+
+#root {
+  min-height: 100vh;
+  display: flex;
+} */
