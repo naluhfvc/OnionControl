@@ -1,11 +1,14 @@
 import React from "react";
-import Navbar from "./components/Navbar/Navbar";
+import { Route, Routes } from "react-router-dom";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import Home from "./pages/Home/Home";
 
 const App = () => {
     return (
-        <div className="container min-w-full">
-            <Navbar/>
-        </div>
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/Dashboard" element={<Dashboard />} />
+        </Routes>
     );
 };
 export default App;
