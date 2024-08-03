@@ -6,6 +6,7 @@ export default {
             pink: "#e12c9e",
             black: "#02020cfb",
             white: "#fff",
+            secondary : "#472ce1",
         },
         fontFamily: {
             mono: ["JetBrains Mono", "monospace"],

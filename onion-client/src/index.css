@@ -5,3 +5,11 @@
 :root {
   @apply font-poppins;
 }
+
+.gradientBg{
+    background: linear-gradient(99deg, #E12C9E 0%, #472ce1 100%);
+}
+
+.btn {
+   @apply py-3 px-8 font-semibold rounded transition-all duration-300 bg-black text-white hover:bg-secondary;
+}
