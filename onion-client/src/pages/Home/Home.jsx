@@ -1,15 +1,17 @@
 import React from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import Banner from "../../components/Banner/Banner";
+import Import from "../../components/Import/Import";
 
 const HomePage = () => {
     return (
-        <div>
+        <>
             <Navbar />
-            <div className="md:px-12 p-4 max-w-screen-2xl mx-auto xl:mt-7 mt-16">
+            <div className="md:px-12 p-4 mx-auto xl:mt-20 mt-10">
                 <Banner />
+                <Import />
             </div>
-        </div>
+        </>
     );
 };
 

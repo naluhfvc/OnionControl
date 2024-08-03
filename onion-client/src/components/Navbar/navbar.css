@@ -1,10 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 /* Estilos personalizados para o Navbar usando Tailwind */
 .navbar{
-    @apply w-full p-2 border-b border-solid bg-white;
+    @apply w-full p-2 border-b border-solid bg-white fixed top-0 right-0 left-0;
     border-color: rgb(216, 209, 209);
 }
 

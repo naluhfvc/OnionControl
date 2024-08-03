@@ -1,0 +1,23 @@
+.gradient-bg {
+    background: linear-gradient(99deg, #E12C9E 0%, #472ce1 100%);
+}
+
+.banner {
+    @apply rounded-xl rounded-br-[80px] md:p-9 xl:px-14 px-4 py-9;
+}
+
+.banner-content {
+    @apply flex flex-col md:flex-row-reverse justify-between items-center gap-10;
+}
+
+.banner-image {
+    @apply lg:h-[386px] xl:mr-10;
+}
+
+.banner-title {
+    @apply md:text-4xl text-4xl font-bold text-white mb-6 leading-relaxed;
+}
+
+.banner-text {
+    @apply text-white text-xl mb-8 text-white text-xl mb-8;
+}
