@@ -11,5 +11,5 @@
 }
 
 .btn {
-   @apply py-3 px-8 font-semibold rounded transition-all duration-300 bg-black text-white hover:bg-secondary;
+   @apply py-3 px-8 font-semibold rounded transition-all duration-300 text-white bg-secondary hover:bg-[#372770];
 }

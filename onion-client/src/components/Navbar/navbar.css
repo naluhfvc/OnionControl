@@ -4,8 +4,8 @@
 
 /* Estilos personalizados para o Navbar usando Tailwind */
 .navbar{
-    @apply w-full p-2 border-b border-solid bg-black;
-    border-color: rgb(223, 217, 217);
+    @apply w-full p-2 border-b border-solid bg-white;
+    border-color: rgb(216, 209, 209);
 }
 
 .navbar-container {
@@ -18,11 +18,11 @@
 }
 
 .navbar-title {
-    @apply text-white mr-6 text-pink font-bold text-lg font-mono;
+    @apply mr-6 text-pink font-bold text-lg font-mono;
 }
 .navbar-links {
     @apply  flex-none space-x-4 flex;
 }
 .navbar-link {
-    @apply text-white hover:text-pink;
+    @apply text-black hover:text-pink font-medium;
 }
