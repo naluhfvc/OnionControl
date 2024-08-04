@@ -1,0 +1,3 @@
+.content {
+    @apply my-24 md:px-14 px-4 mx-auto;
+}

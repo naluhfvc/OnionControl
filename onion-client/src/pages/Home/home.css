@@ -1,0 +1,3 @@
+.content {
+    @apply md:px-12 p-4 mx-auto xl:mt-20 mt-10;
+}

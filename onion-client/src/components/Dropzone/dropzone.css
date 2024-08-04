@@ -1,0 +1,3 @@
+.drop-root {
+    @apply p-20 border border-dashed border-tartiary cursor-pointer rounded-lg;
+}

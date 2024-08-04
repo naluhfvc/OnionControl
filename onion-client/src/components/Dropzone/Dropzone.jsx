@@ -1,7 +1,8 @@
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import "./dropzone.css";
 
-const Upload = () => {
+const Dropzone = () => {
     const [files, setFiles] = useState([]);
 
     const onDrop = useCallback((acceptedFiles) => {
@@ -18,16 +19,17 @@ const Upload = () => {
     return (
         <div
             {...getRootProps({
-                className:
-                    "p-20 border border-dashed border-tartiary cursor-pointer rounded-lg",
+                className: "drop-root",
             })}
         >
             <input {...getInputProps()} />
             {isDragActive ? (
-                <p className="text-tartiary text-center">Solte sua planilha aqui</p>
+                <p className="text-tartiary text-center">
+                    Solte sua planilha aqui
+                </p>
             ) : (
                 <div className="text-center">
-                    <button className="text-pink btn text-sm">
+                    <button className="btn text-pink text-sm">
                         Selecionar arquivo
                     </button>
                     <p className="text-tartiary mt-6">
@@ -39,4 +41,4 @@ const Upload = () => {
     );
 };
 
-export default Upload;
+export default Dropzone;
