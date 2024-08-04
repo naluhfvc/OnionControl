@@ -1,25 +1,56 @@
+import { useState } from "react";
 import { useStepContext } from "../../context/StepContext";
 import Dropzone from "../Dropzone/Dropzone";
+import "./upload.css";
+import { toast } from "react-toastify";
+import { planilhaService } from "../../api/services/planilhaService";
 
 export const Upload = () => {
     const { previousStep } = useStepContext();
+    const [file, setFile] = useState(null);
+    const [isFileSelected, setIsFileSelected] = useState(false);
+
+    const handleFileAccepted = (acceptedFile) => {
+        setFile(acceptedFile);
+        setIsFileSelected(true);
+    };
+
+    const handleUpload = async () => {
+        try {
+            const response = await planilhaService.uploadPlanilha(file);
+            if (response.status === 200) toast.success("Sucesso ao enviar");
+        } catch (error) {
+            toast.error("Erro ao enviar o arquivo");
+        }
+    };
 
     return (
-        <div className="flex flex-col lg:flex-row justify-between items-center gap-10">
+        <div className="content-upload">
             <div className="lg:w-2/4">
-                <h3 className="text-3xl text-pink font-bold mb-3">
-                    Faça upload da sua planilha
-                </h3>
-                <p className="text-[16px] text-tartiary">
+                <h3 className="title-upload">Faça upload da sua planilha</h3>
+                <p className="text-[18px] text-tartiary mb-5">
                     Selecione o botão "Faça upload da planilha" ou arraste e
                     solte seu arquivo com facilidade.
                 </p>
+                <div>
+                    <button
+                        onClick={() => previousStep()}
+                        className="btn text-sm mr-10"
+                    >
+                        Voltar para modelo
+                    </button>
+                    {isFileSelected && (
+                        <button onClick={handleUpload} className="btn text-sm">
+                            Fazer upload
+                        </button>
+                    )}
+                </div>
             </div>
 
             <div className="w-full lg:w-2/4">
                 <div>
                     <div>
-                        <Dropzone />
+                        <Dropzone onFileAccepted={handleFileAccepted} />
                     </div>
                 </div>
             </div>

@@ -1,11 +1,14 @@
+import { useState } from "react";
 import { planilhaService } from "../../api/services/planilhaService";
 import { useStepContext } from "../../context/StepContext";
 import "./download.css";
 
 export const Download = () => {
     const { nextStep } = useStepContext();
+    const [isDownloading, setIsDownloading] = useState(false);
 
     const handleDownload = async () => {
+        setIsDownloading(true);
         try {
             const response = await planilhaService.downloadPlanilhaModelo();
             const url = window.URL.createObjectURL(new Blob([response]));
@@ -14,17 +17,22 @@ export const Download = () => {
             link.setAttribute("download", "planilhaModelo.xlsx");
             document.body.appendChild(link);
             link.click();
+            link.remove();
+            setTimeout(() => {
+                setIsDownloading(false);
+                nextStep();
+            }, 1000);
         } catch (error) {
             console.error("Erro ao enviar o arquivo:", error);
+            setIsDownloading(false);
+        } finally {
         }
     };
 
     return (
         <div className="content-download">
             <div className="lg:w-2/3">
-                <h3 className="download-title">
-                    Modelo de Planilha
-                </h3>
+                <h3 className="download-title">Modelo de Planilha</h3>
                 <p className="download-text">
                     Baixe nosso modelo de planilha para garantir a precisão na
                     importação dos seus pedidos.
@@ -37,10 +45,18 @@ export const Download = () => {
                     arquivo.
                 </p>
                 <div>
-                    <button onClick={handleDownload} className="btn">
-                        Baixar modelo
+                    <button
+                        onClick={handleDownload}
+                        disabled={isDownloading}
+                        className="btn"
+                    >
+                        {isDownloading ? "Baixando..." : "Baixar modelo"}
                     </button>
-                    <button onClick={() => nextStep()} className="btn ml-6">
+                    <button
+                        onClick={() => nextStep()}
+                        disabled={isDownloading}
+                        className="btn ml-6"
+                    >
                         Já tenho
                     </button>
                 </div>
@@ -48,9 +64,7 @@ export const Download = () => {
 
             <div className="w-full lg:w-2/4">
                 <div>
-                    <div>
-                        image
-                    </div>
+                    <div>image</div>
                 </div>
             </div>
         </div>

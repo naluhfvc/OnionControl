@@ -1,4 +1,4 @@
-﻿namespace Server.Models
+﻿namespace OnionServer.Domain.Models
 {
     public class Produto
     {

@@ -1,0 +1,7 @@
+.content-upload {
+    @apply flex flex-col lg:flex-row justify-between items-center gap-10;
+}
+
+.title-upload {
+    @apply text-3xl text-pink font-bold mb-3;
+}

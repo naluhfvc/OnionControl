@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Server.Context;
-using Server.Data;
+using OnionServer.Application.Services;
+using OnionServer.Domain.Interfaces;
+using OnionServer.Infrastructure.Data;
 using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,9 @@ builder.Services.AddDbContext<OnionDbContext>(opt =>
     opt.UseSqlite(connectionString));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IPlanilhaService, PlanilhaService>();
+
 
 builder.Services.AddCors(options =>
 {

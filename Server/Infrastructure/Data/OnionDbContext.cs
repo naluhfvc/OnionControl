@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Server.Models;
+using OnionServer.Domain.Models;
 
-namespace Server.Context
+namespace OnionServer.Infrastructure.Data
 {
     public class OnionDbContext : DbContext
     {
