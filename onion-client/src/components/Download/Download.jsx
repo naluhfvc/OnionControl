@@ -1,27 +1,35 @@
+import { planilhaService } from "../../api/services/planilhaService";
 import { useStepContext } from "../../context/StepContext";
+import "./download.css";
 
 export const Download = () => {
     const { nextStep } = useStepContext();
 
-    const downloadTemplate = () => {
-        // Logic to download the template file
-        const link = document.createElement("a");
-        link.href = "url_to_your_template_file";
-        link.download = "modelo_planilha.xlsx";
-        link.click();
+    const handleDownload = async () => {
+        try {
+            const response = await planilhaService.downloadPlanilhaModelo();
+            const url = window.URL.createObjectURL(new Blob([response]));
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", "planilhaModelo.xlsx");
+            document.body.appendChild(link);
+            link.click();
+        } catch (error) {
+            console.error("Erro ao enviar o arquivo:", error);
+        }
     };
 
     return (
-        <div className="flex flex-col lg:flex-row justify-between items-center gap-10">
+        <div className="content-download">
             <div className="lg:w-2/3">
-                <h3 className="text-3xl text-pink font-bold mb-3">
+                <h3 className="download-title">
                     Modelo de Planilha
                 </h3>
-                <p className="text-[18px] text-tartiary mb-5">
+                <p className="download-text">
                     Baixe nosso modelo de planilha para garantir a precisão na
                     importação dos seus pedidos.
                 </p>
-                <p className="text-[18px] text-tartiary mb-5">
+                <p className="download-text">
                     Certifique-se de preencher os dados corretamente e manter o
                     formato original para uma importação bem-sucedida.
                     <br />
@@ -29,12 +37,20 @@ export const Download = () => {
                     arquivo.
                 </p>
                 <div>
-                    <button onClick={downloadTemplate} className="btn">
+                    <button onClick={handleDownload} className="btn">
                         Baixar modelo
                     </button>
                     <button onClick={() => nextStep()} className="btn ml-6">
                         Já tenho
                     </button>
+                </div>
+            </div>
+
+            <div className="w-full lg:w-2/4">
+                <div>
+                    <div>
+                        image
+                    </div>
                 </div>
             </div>
         </div>

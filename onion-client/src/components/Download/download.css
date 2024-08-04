@@ -1,0 +1,11 @@
+.content-download {
+    @apply flex flex-col lg:flex-row justify-between items-center gap-10;
+}
+
+.download-title {
+    @apply text-3xl text-pink font-bold mb-3;
+}
+
+.download-text {
+    @apply text-[18px] text-tartiary mb-5 text-[18px] text-tartiary mb-5;
+}
