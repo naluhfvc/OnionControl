@@ -19,5 +19,5 @@
 }
 
 .banner-text {
-    @apply text-white text-xl mb-8 text-white text-xl mb-8;
+    @apply text-white text-xl mb-8  text-xl mb-8;
 }

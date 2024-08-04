@@ -4,9 +4,10 @@ export default {
     theme: {
         colors: {
             pink: "#e12c9e",
+            purple : "#472ce1",
             black: "#02020cfb",
             white: "#fff",
-            secondary : "#472ce1",
+            tartiary: "#707070",
         },
         fontFamily: {
             mono: ["JetBrains Mono", "monospace"],
