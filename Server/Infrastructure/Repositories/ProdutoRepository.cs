@@ -1,4 +1,5 @@
-﻿using OnionServer.Domain.Models;
+﻿using OnionServer.Application.DTOs;
+using OnionServer.Domain.Models;
 using OnionServer.Infrastructure.Data;
 using OnionServer.Infrastructure.Interfaces;
 

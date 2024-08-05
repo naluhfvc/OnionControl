@@ -5,5 +5,6 @@ namespace OnionServer.Infrastructure.Interfaces
 {
     public interface IClienteRepository: IRepository<Cliente>
     {
+        Task<Cliente> GetByNumeroDoc(string  numeroDoc);
     }
 }

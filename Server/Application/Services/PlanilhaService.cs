@@ -4,23 +4,61 @@ using OnionServer.Application.DTOs;
 using OfficeOpenXml;
 using OnionServer.Domain.Validators;
 using OnionServer.Application.Interfaces;
+using OnionServer.Infrastructure.Repositories;
+using AutoMapper;
+using OnionServer.Infrastructure.Interfaces;
 
 namespace OnionServer.Application.Services
 {
     public class PlanilhaService : IPlanilhaService
     {
-        private readonly OnionDbContext _context;
+        private readonly IMapper _mapper;
+        private readonly IClienteService _clienteService;
+        private readonly IProdutoService _produtoService;
+        private readonly IPedidoService _pedidoService;
+        private readonly IPedidoProdutoService _pedidoProdutoService;
 
-        public PlanilhaService(OnionDbContext context)
+        public PlanilhaService(
+            IMapper mapper,
+            IClienteService clienteService,
+            IProdutoService produtoService,
+            IPedidoService pedidoService,
+            IPedidoProdutoService pedidoProdutoService
+            )
         {
-            _context = context;
+            _mapper = mapper;
+            _clienteService = clienteService;
+            _produtoService = produtoService;
+            _pedidoService = pedidoService;
+            _pedidoProdutoService = pedidoProdutoService;
         }
 
-        async Task<Result> IPlanilhaService.ProcessarPlanilha(IFormFile planilha)
+        public async Task<Result> CadastrarDados(IEnumerable<PedidoPlanilhaDTO> listaPedidosDTO)
         {
-            if (planilha is null) throw new Exception("O Arquivo é nulo.");
+            if (listaPedidosDTO == null || listaPedidosDTO.Any())
+                return new Result { Success = false, Message = "A planilha não possui dados." };
+
+            foreach (var pedidoDTO in listaPedidosDTO)
+            {
+                var cliente = await _clienteService.CadastrarCliente(pedidoDTO);
+                var produto = await _produtoService.BuscarProduto(pedidoDTO);
+
+                if (produto != null)
+                {
+                    var pedido = await _pedidoService.CadastrarPedido(pedidoDTO);
+                    var pedidoProduto = await _pedidoProdutoService.CadastrarPedidoProduto(pedido.Id, produto.Id);
+                }
+            }
+
+            return new Result { Success = true, Message = "Informações da planilha cadastradas com sucesso." };
+        }
+
+        public async Task<IEnumerable<PedidoPlanilhaDTO>> LerPlanilha(IFormFile planilha)
+        {
+            if (planilha == null) throw new Exception("O Arquivo é nulo.");
 
             var listaPedidos = new List<PedidoPlanilhaDTO>();
+
             try
             {
                 using (var package = new ExcelPackage(planilha.OpenReadStream()))
@@ -43,12 +81,37 @@ namespace OnionServer.Application.Services
                     }
 
                 }
-                return new Result { Success = true, Message = "Planilha processada com sucesso." };
             }
             catch (Exception ex)
             {
-                return new Result { Success = false, Message = $"Erro ao processar a planilha: {ex.Message}" };
+                throw new InvalidOperationException($"Erro ao ler a planilha: {ex.Message}");
+            }
+
+            return listaPedidos;
+        }
+
+        public async Task<Result> ProcessarPlanilha(IFormFile planilha)
+        {
+            if (planilha == null) return new Result
+            {
+                Success = false,
+                Message = "O arquivo é nulo."
+            };
+
+            try
+            {
+                var pedidos = await LerPlanilha(planilha);
+                return await CadastrarDados(pedidos);
+            }
+            catch (Exception ex)
+            {
+                return new Result
+                {
+                    Success = false,
+                    Message = ex.Message
+                };
             }
         }
     }
 }
+

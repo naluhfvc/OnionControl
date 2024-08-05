@@ -37,17 +37,10 @@ namespace OnionServer.Api.Controllers
         [HttpPost("upload")]
         public async Task<IActionResult> PostPlanilha(IFormFile file)
         {
-            if (file == null || file.Length == 0)
-            {
-                return BadRequest("Nenhum arquivo foi enviado.");
-            }
-
             var result = await _planilhaService.ProcessarPlanilha(file);
 
             if (result.Success)
-            {
-                return Ok(result.Data);
-            }
+                return Ok(result.Message);
 
             return BadRequest(result.Message);
         }

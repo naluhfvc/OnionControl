@@ -1,10 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using OnionServer.Application.Interfaces;
+using OnionServer.Application.Mapping;
 using OnionServer.Application.Services;
 using OnionServer.Infrastructure.Data;
 using OnionServer.Infrastructure.Interfaces;
 using OnionServer.Infrastructure.Repositories;
-using System.Configuration;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +20,12 @@ builder.Services.AddDbContext<OnionDbContext>(opt =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddAutoMapper(typeof(OnionProfile));
+
 builder.Services.AddScoped<IPlanilhaService, PlanilhaService>();
+builder.Services.AddScoped<IPedidoService, PedidoService>();
+builder.Services.AddScoped<IClienteService, ClienteService>();
+builder.Services.AddScoped<IProdutoService, ProdutoService>();
 
 // repositories
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();

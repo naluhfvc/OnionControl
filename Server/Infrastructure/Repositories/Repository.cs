@@ -13,7 +13,7 @@ namespace OnionServer.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<T> GetByIdAsync(int id)
+         public async Task<T> GetByIdAsync(int id)
         {
             return await _context.Set<T>().FindAsync(id);
         }
@@ -23,9 +23,14 @@ namespace OnionServer.Infrastructure.Repositories
             return await _context.Set<T>().ToListAsync();
         }
 
-        public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
+        public async Task<T> FindAsync(Expression<Func<T, bool>> predicate)
         {
-            return await _context.Set<T>().Where(predicate).ToListAsync();
+            return await _context.Set<T>().AsNoTracking().FirstOrDefaultAsync(predicate);
+        }   
+        
+        public async Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _context.Set<T>().Where(predicate).AsNoTracking().ToListAsync();
         }
 
         public async Task AddAsync(T entity)
@@ -46,6 +51,11 @@ namespace OnionServer.Infrastructure.Repositories
         public async Task RemoveRangeAsync(IEnumerable<T> entities)
         {
             _context.Set<T>().RemoveRange(entities);
+        }
+
+        public bool SaveChanges()
+        {
+            return (_context.SaveChanges() > 0);
         }
     }
 }
