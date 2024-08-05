@@ -38,19 +38,19 @@ const TableVendas = () => {
                 <tbody className="bg-[#be91bbbe] divide-y divide-gray-200">
                     {orderData?.map((item, index) => (
                         <tr key={index}>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm  text-black">
+                            <td className="text-body">
                                 {item.nomeCliente}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
+                            <td className="text-body">
                                 {item.nomeProduto}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
+                            <td className="text-body">
                                 {formatCurrency(item.valorFinal)}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
+                            <td className="text-body">
                                 {item.dataDeEntrega}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
+                            <td className="text-body">
                                 {item.regiao}
                             </td>
                         </tr>
