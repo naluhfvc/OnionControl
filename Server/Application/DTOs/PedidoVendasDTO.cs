@@ -6,5 +6,6 @@
         public string NomeProduto { get; set; }
         public decimal ValorFinal { get; set; }
         public DateOnly DataDeEntrega {  get; set; }
+        public string Regiao { get; set; }
     }
 }

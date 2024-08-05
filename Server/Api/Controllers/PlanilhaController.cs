@@ -23,7 +23,7 @@ namespace OnionServer.Api.Controllers
         [HttpGet("downloadModelo")]
         public IActionResult GetModelo()
         {
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Files", "modeloPlanilha.xlsx");
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Api", "Files", "ModeloPlanilha.xlsx");
 
             if (!System.IO.File.Exists(filePath))
             {

@@ -34,6 +34,7 @@ namespace OnionServer.Application.Services
                 ValorFinal = valorTotal,
                 DataDeEntrega = dataEntregaEstimada,
                 NomeProduto = pedido.Produto,
+                Regiao = regiao.ToString(),
             };
         }
 

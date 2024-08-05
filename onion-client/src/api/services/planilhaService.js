@@ -31,6 +31,22 @@ export const uploadPlanilha = async (file) => {
     }
 }
 
+export const getListaVendas = async () => {
+    try{
+        const response = await apiClient.get("/planilha/listaVendas", {
+            headers: {
+                "Content-Type": "application/json",
+            }
+        });
+
+        console.log(response.data)
+        return response.data;
+    } catch (error) {
+        console.error("Erro ao buscar lista de vendas:", error);
+        throw error;
+    }
+}
+
 export const planilhaService = {
     downloadPlanilhaModelo,
     uploadPlanilha
