@@ -8,7 +8,7 @@ OnionControl é um sistema desenvolvido para a Onion S.A., uma empresa líder na
 - Consulta de Localização: Utiliza o BrasilApi para consultar a localização com base no CEP.
 
 ## Tecnologias
-- Backend: .NET 8, Entity Framework, SQLite, Epplus;
+- Backend: .NET 8, Entity Framework, SQLite, Epplus, AutoMapper;
 - Frontend: React, Vite, Tailwind, Framer-motion, Axios;
 
 ## Como Executar o Projeto
