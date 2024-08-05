@@ -1,8 +1,9 @@
 ﻿using OnionServer.Domain.Models;
-using OnionServer.Domain.Interfaces;
 using OnionServer.Infrastructure.Data;
 using OnionServer.Application.DTOs;
 using OfficeOpenXml;
+using OnionServer.Domain.Validators;
+using OnionServer.Application.Interfaces;
 
 namespace OnionServer.Application.Services
 {
@@ -17,6 +18,8 @@ namespace OnionServer.Application.Services
 
         async Task<Result> IPlanilhaService.ProcessarPlanilha(IFormFile planilha)
         {
+            if (planilha is null) throw new Exception("O Arquivo é nulo.");
+
             var listaPedidos = new List<PedidoPlanilhaDTO>();
             try
             {
@@ -29,12 +32,12 @@ namespace OnionServer.Application.Services
                     {
                         var linhaPedido = new PedidoPlanilhaDTO
                         {
-                            NumeroDoc = worksheet.Cells[row, 1].Value.ToString(),
-                            RazaoSocial = worksheet.Cells[row, 2].Value.ToString(),
-                            Cep = worksheet.Cells[row, 3].Value.ToString(),
-                            Produto = worksheet.Cells[row, 4].Value.ToString(),
-                            NumeroPedido = int.Parse(worksheet.Cells[row, 5].Value.ToString()),
-                            Data = worksheet.Cells[row, 6].Value.ToString()
+                            NumeroDoc = PlanilhaValidators.ValidarNumeroDoc(worksheet.Cells[row, 1].Value.ToString()!),
+                            RazaoSocial = worksheet.Cells[row, 2].Value.ToString()!,
+                            Cep = PlanilhaValidators.ValidarCEP(worksheet.Cells[row, 3].Value.ToString()!),
+                            Produto = worksheet.Cells[row, 4].Value.ToString()!,
+                            NumeroPedido = int.Parse(worksheet.Cells[row, 5].Value.ToString()!),
+                            Data = PlanilhaValidators.FormatarDataParaDateOnly(worksheet.Cells[row, 6].Value.ToString()!)
                         };
                         listaPedidos.Add(linhaPedido);
                     }

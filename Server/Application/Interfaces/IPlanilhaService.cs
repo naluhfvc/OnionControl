@@ -1,7 +1,7 @@
 ﻿using OnionServer.Application.DTOs;
 using OnionServer.Domain.Models;
 
-namespace OnionServer.Domain.Interfaces
+namespace OnionServer.Application.Interfaces
 {
     public interface IPlanilhaService
     {

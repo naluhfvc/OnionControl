@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using OnionServer.Application.Interfaces;
 using OnionServer.Application.Services;
-using OnionServer.Domain.Interfaces;
 using OnionServer.Infrastructure.Data;
+using OnionServer.Infrastructure.Interfaces;
+using OnionServer.Infrastructure.Repositories;
 using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +21,13 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IPlanilhaService, PlanilhaService>();
 
+// repositories
+builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<IPedidoProdutoRepository, PedidoProdutoRepository>();
+builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
+builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
+
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 builder.Services.AddCors(options =>
 {

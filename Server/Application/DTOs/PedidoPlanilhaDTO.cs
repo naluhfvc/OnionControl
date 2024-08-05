@@ -7,6 +7,6 @@
         public string Cep {  get; set; }
         public string Produto { get; set; }
         public int NumeroPedido { get; set; }
-        public string Data { get; set; }
+        public DateOnly Data { get; set; }
     }
 }
