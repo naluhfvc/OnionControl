@@ -35,22 +35,22 @@ const TableVendas = () => {
                         <th className="text-header">Região</th>
                     </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-[#be91bbbe] divide-y divide-gray-200">
                     {orderData?.map((item, index) => (
                         <tr key={index}>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-pink">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm  text-black">
                                 {item.nomeCliente}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-pink">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
                                 {item.nomeProduto}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-pink">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
                                 {formatCurrency(item.valorFinal)}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-pink">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
                                 {item.dataDeEntrega}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-pink">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
                                 {item.regiao}
                             </td>
                         </tr>

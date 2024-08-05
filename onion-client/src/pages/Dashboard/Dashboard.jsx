@@ -15,7 +15,7 @@ const DashboardPage = () => {
                 <div className="content mb-10">
                     <div className="content-dashboard">
                         <div className="lg:w-3/5 mr-6">
-                            <h3 className="download-title">
+                            <h3 className="download-title mb-4">
                                 Confira as informações das suas vendas
                             </h3>
                             <TableVendas/>
