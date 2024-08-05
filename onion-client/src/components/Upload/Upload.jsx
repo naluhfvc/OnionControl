@@ -4,11 +4,13 @@ import Dropzone from "../Dropzone/Dropzone";
 import "./upload.css";
 import { toast } from "react-toastify";
 import { planilhaService } from "../../api/services/planilhaService";
+import { useNavigate } from "react-router-dom";
 
 export const Upload = () => {
     const { previousStep } = useStepContext();
     const [file, setFile] = useState(null);
     const [isFileSelected, setIsFileSelected] = useState(false);
+    const navigate = useNavigate();
 
     const handleFileAccepted = (acceptedFile) => {
         setFile(acceptedFile);
@@ -18,7 +20,10 @@ export const Upload = () => {
     const handleUpload = async () => {
         try {
             const response = await planilhaService.uploadPlanilha(file);
-            if (response.status === 200) toast.success("Sucesso ao enviar");
+            if (response.status === 200){
+                toast.success("Sucesso ao enviar");
+                navigate("/Dashboard");
+            } 
         } catch (error) {
             toast.error("Erro ao enviar o arquivo");
         }

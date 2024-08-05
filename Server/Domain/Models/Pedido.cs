@@ -7,6 +7,6 @@
         public string ClienteNumeroDoc { get; set; } // FK
 
         public Cliente Cliente { get; set; }
-        public IEnumerable<PedidoProduto> PedidosProdutos { get; set; }
+        public IEnumerable<PedidoProduto> PedidosProdutos { get; set; } = new List<PedidoProduto>();
     }
 }

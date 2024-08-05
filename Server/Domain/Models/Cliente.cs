@@ -6,6 +6,6 @@
         public string RazaoSocial { get; set; }
         public string Cep { get; set; }
 
-        public IEnumerable<Pedido> Pedidos { get; set; } = Enumerable.Empty<Pedido>();
+        public IEnumerable<Pedido> Pedidos { get; set; } = new List<Pedido>();
     }
 }

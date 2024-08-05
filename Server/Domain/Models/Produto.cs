@@ -6,6 +6,6 @@
         public string Nome { get; set; }
         public decimal Valor { get; set; }
 
-        public IEnumerable<PedidoProduto> PedidosProdutos { get; set; }
+        public IEnumerable<PedidoProduto> PedidosProdutos { get; set; } = new List<PedidoProduto>();
     }
 }
