@@ -10,7 +10,7 @@ namespace OnionServer.Domain.Validators
         {
             var docFormatado = SomenteNumeros(numeroDoc);
 
-            if (docFormatado.Length != 11 || docFormatado.Length != 14)
+            if (docFormatado.Length != 11 && docFormatado.Length != 14)
             {
                 throw new ArgumentException("Número de documento inválido. Quantidade de dígitos deve ser de um CPF ou CNPJ.");
             }
@@ -46,10 +46,11 @@ namespace OnionServer.Domain.Validators
             {
                 throw new ArgumentNullException("Data não pode ser vazia ou nula.");
             }
-
-            if (DateOnly.TryParseExact(data, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateOnly dataFormatada))
+            var formato = "dd/MM/yyyy HH:mm:ss";
+            if (DateTime.TryParseExact(data, formato,CultureInfo.InvariantCulture, DateTimeStyles.None, out var dataFormatada))
             {
-                return dataFormatada;
+                Console.WriteLine(DateOnly.FromDateTime(dataFormatada));
+                return DateOnly.FromDateTime(dataFormatada);
             }
             else
             {

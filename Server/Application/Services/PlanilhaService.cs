@@ -1,12 +1,9 @@
 ﻿using OnionServer.Domain.Models;
-using OnionServer.Infrastructure.Data;
 using OnionServer.Application.DTOs;
 using OfficeOpenXml;
 using OnionServer.Domain.Validators;
 using OnionServer.Application.Interfaces;
-using OnionServer.Infrastructure.Repositories;
 using AutoMapper;
-using OnionServer.Infrastructure.Interfaces;
 
 namespace OnionServer.Application.Services
 {
@@ -35,22 +32,28 @@ namespace OnionServer.Application.Services
 
         public async Task<Result> CadastrarDados(IEnumerable<PedidoPlanilhaDTO> listaPedidosDTO)
         {
-            if (listaPedidosDTO == null || listaPedidosDTO.Any())
+            if (listaPedidosDTO == null || !listaPedidosDTO.Any())
                 return new Result { Success = false, Message = "A planilha não possui dados." };
-
-            foreach (var pedidoDTO in listaPedidosDTO)
+            try
             {
-                var cliente = await _clienteService.CadastrarCliente(pedidoDTO);
-                var produto = await _produtoService.BuscarProduto(pedidoDTO);
-
-                if (produto != null)
+                foreach (var pedidoDTO in listaPedidosDTO)
                 {
-                    var pedido = await _pedidoService.CadastrarPedido(pedidoDTO);
-                    var pedidoProduto = await _pedidoProdutoService.CadastrarPedidoProduto(pedido.Id, produto.Id);
-                }
-            }
+                    var cliente = await _clienteService.CadastrarCliente(pedidoDTO);
+                    var produto = await _produtoService.BuscarProduto(pedidoDTO);
 
-            return new Result { Success = true, Message = "Informações da planilha cadastradas com sucesso." };
+                    if (produto != null)
+                    {
+                        var pedido = await _pedidoService.CadastrarPedido(pedidoDTO);
+                        var pedidoProduto = await _pedidoProdutoService.CadastrarPedidoProduto(pedido.Id, produto.Id);
+                    }
+                }
+
+                return new Result { Success = true, Message = "Informações da planilha cadastradas com sucesso." };
+            }
+            catch (Exception ex)
+            {
+                return new Result { Success = false, Message = ex.Message };
+            }
         }
 
         public async Task<IEnumerable<PedidoPlanilhaDTO>> LerPlanilha(IFormFile planilha)
@@ -59,32 +62,29 @@ namespace OnionServer.Application.Services
 
             var listaPedidos = new List<PedidoPlanilhaDTO>();
 
-            try
+
+            using (var package = new ExcelPackage(planilha.OpenReadStream()))
             {
-                using (var package = new ExcelPackage(planilha.OpenReadStream()))
+                var worksheet = package.Workbook.Worksheets[0];
+                var rowCount = worksheet.Dimension.Rows;
+
+                for (int row = 2; row <= rowCount; row++)
                 {
-                    var worksheet = package.Workbook.Worksheets[0];
-                    var rowCount = worksheet.Dimension.Rows;
+                    var docNumero = worksheet.Cells[row, 1].Value;
+                    if (docNumero is null) continue;
 
-                    for (int row = 2; row <= rowCount; row++)
+                    var linhaPedido = new PedidoPlanilhaDTO
                     {
-                        var linhaPedido = new PedidoPlanilhaDTO
-                        {
-                            NumeroDoc = PlanilhaValidators.ValidarNumeroDoc(worksheet.Cells[row, 1].Value.ToString()!),
-                            RazaoSocial = worksheet.Cells[row, 2].Value.ToString()!,
-                            Cep = PlanilhaValidators.ValidarCEP(worksheet.Cells[row, 3].Value.ToString()!),
-                            Produto = worksheet.Cells[row, 4].Value.ToString()!,
-                            NumeroPedido = int.Parse(worksheet.Cells[row, 5].Value.ToString()!),
-                            Data = PlanilhaValidators.FormatarDataParaDateOnly(worksheet.Cells[row, 6].Value.ToString()!)
-                        };
-                        listaPedidos.Add(linhaPedido);
-                    }
-
+                        NumeroDoc = PlanilhaValidators.ValidarNumeroDoc(worksheet.Cells[row, 1].Value.ToString()!.Trim()),
+                        RazaoSocial = worksheet.Cells[row, 2].Value.ToString()!.Trim(),
+                        Cep = PlanilhaValidators.ValidarCEP(worksheet.Cells[row, 3].Value.ToString()!.Trim()),
+                        Produto = worksheet.Cells[row, 4].Value.ToString()!.Trim(),
+                        NumeroPedido = int.Parse(worksheet.Cells[row, 5].Value.ToString()!.Trim()),
+                        Data = PlanilhaValidators.FormatarDataParaDateOnly(worksheet.Cells[row, 6].Value.ToString()!.Trim())
+                    };
+                    listaPedidos.Add(linhaPedido);
                 }
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException($"Erro ao ler a planilha: {ex.Message}");
+
             }
 
             return listaPedidos;

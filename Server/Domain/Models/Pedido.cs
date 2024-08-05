@@ -3,7 +3,7 @@
     public class Pedido
     {
         public int Id { get; set; }
-        public DateTime Data { get; set; }
+        public DateOnly Data { get; set; }
         public string ClienteNumeroDoc { get; set; } // FK
 
         public Cliente Cliente { get; set; }

@@ -1,16 +1,15 @@
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
 using OnionServer.Application.Interfaces;
 using OnionServer.Application.Mapping;
 using OnionServer.Application.Services;
 using OnionServer.Infrastructure.Data;
-using OnionServer.Infrastructure.Interfaces;
-using OnionServer.Infrastructure.Repositories;
-using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("Default");
 
+ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -26,14 +25,8 @@ builder.Services.AddScoped<IPlanilhaService, PlanilhaService>();
 builder.Services.AddScoped<IPedidoService, PedidoService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<IProdutoService, ProdutoService>();
+builder.Services.AddScoped<IPedidoProdutoService, PedidoProdutoService>();
 
-// repositories
-builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
-builder.Services.AddScoped<IPedidoProdutoRepository, PedidoProdutoRepository>();
-builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
-builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
-
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 builder.Services.AddCors(options =>
 {
