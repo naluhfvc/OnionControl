@@ -11,7 +11,7 @@ const TableVendas = () => {
     if (loading) return <LoadingModal isOpen={loading}/>;
 
     if (error){
-        navigate('/')
+        navigate('/') ;
         return toast.error("Erro ao buscar as vendas. Tente novamente.");
     } 
 

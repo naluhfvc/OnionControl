@@ -40,7 +40,6 @@ export const getListaVendas = async () => {
         });
 
         console.log(response.data)
-        if(!response.ok) throw new Error("Erro ao buscar lista de vendas");
         return response.data;
     } catch (error) {
         console.error("Erro ao buscar lista de vendas.");
