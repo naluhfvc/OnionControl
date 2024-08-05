@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using OfficeOpenXml;
 using OnionServer.Application.Interfaces;
 using OnionServer.Application.Mapping;
@@ -26,7 +27,14 @@ builder.Services.AddScoped<IPedidoService, PedidoService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<IProdutoService, ProdutoService>();
 builder.Services.AddScoped<IPedidoProdutoService, PedidoProdutoService>();
+builder.Services.AddScoped<IEnderecoService, EnderecoService>();
+builder.Services.AddScoped<IPedidoVendasService, PedidoVendasService>();
 
+// Adicione o HttpClientFactory
+builder.Services.AddHttpClient<IEnderecoService, EnderecoService>(client =>
+{
+    client.BaseAddress = new Uri("https://viacep.com.br/ws/");
+});
 
 builder.Services.AddCors(options =>
 {

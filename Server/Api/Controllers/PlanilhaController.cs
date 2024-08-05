@@ -11,10 +11,12 @@ namespace OnionServer.Api.Controllers
     public class PlanilhaController : ControllerBase
     {
         private readonly IPlanilhaService _planilhaService;
+        private readonly IPedidoVendasService _pedidoVendasService;
 
-        public PlanilhaController(IPlanilhaService planilhaService)
+        public PlanilhaController(IPlanilhaService planilhaService, IPedidoVendasService pedidoVendasService)
         {
             _planilhaService = planilhaService;
+            _pedidoVendasService = pedidoVendasService;
         }
 
         // GET: api/<PlanilhaController>/downloadModelo
@@ -45,7 +47,20 @@ namespace OnionServer.Api.Controllers
             return BadRequest(result.Message);
         }
 
-
+        // GET api/<PlanilhaController>/listaVendas
+        [HttpGet("listaVendas")]
+        public async Task<IActionResult> GetListaVendas()
+        {
+            try
+            {
+                var listaVendas = await _pedidoVendasService.ObterListaVendas();
+                return Ok(listaVendas);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Erro ao pegar lista de vendas.");
+            }
+        }
     }
 
 

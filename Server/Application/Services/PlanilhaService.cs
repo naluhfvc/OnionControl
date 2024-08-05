@@ -4,6 +4,7 @@ using OfficeOpenXml;
 using OnionServer.Domain.Validators;
 using OnionServer.Application.Interfaces;
 using AutoMapper;
+using OnionServer.Application.Utils;
 
 namespace OnionServer.Application.Services
 {
@@ -101,6 +102,7 @@ namespace OnionServer.Application.Services
             try
             {
                 var pedidos = await LerPlanilha(planilha);
+                ListaPedidosCache.UltimaLista = pedidos;
                 return await CadastrarDados(pedidos);
             }
             catch (Exception ex)
