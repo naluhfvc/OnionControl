@@ -16,16 +16,16 @@ namespace OnionServer.Application.Services
 
         public async Task<Endereco> ObterEndereco(string cep)
         {
-            await Task.Delay(400);
+            await Task.Delay(600);
 
-            var url = $"https://viacep.com.br/ws/{cep}/json";
+            var url = $"https://brasilapi.com.br/api/cep/v1/{cep}";
             var response = await _httpClient.GetStringAsync(url);
             dynamic resultado = JsonConvert.DeserializeObject(response);
             if (resultado == null)
             {
                 throw new Exception("Localização não encontrada pelo CEP");
             }
-            return new Endereco { UF = resultado.uf, Localidade = resultado.localidade };
+            return new Endereco { UF = resultado.state, Localidade = resultado.city };
         }
     }
 }
