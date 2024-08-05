@@ -9,3 +9,7 @@
 .download-text {
     @apply text-[18px] text-tartiary mb-5 text-[18px] text-tartiary mb-5;
 }
+
+.image {
+    @apply lg:h-[386px] xl:mr-10;
+}

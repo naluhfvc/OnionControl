@@ -1,0 +1,3 @@
+.text-header {
+    @apply px-4 py-3 text-left text-xs font-medium uppercase tracking-wider;
+}

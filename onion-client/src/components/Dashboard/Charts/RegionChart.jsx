@@ -14,16 +14,18 @@ const RegionChart = () => {
         }
     }, [orderData, loading]);
 
-    if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
     return (
         <div>
-            <h2>Pedidos por Região</h2>
-            {loading ? (
-                <p>Loading...</p>
-            ) : (
-                <Pie data={chartData} id={"region-chart"} />
+            {!loading && orderData && (
+                <>
+                    <h2 className="text-xl text-tartiary">
+                        Pedidos por Região
+                    </h2>
+
+                    <Pie data={chartData} id={"region-chart"} />
+                </>
             )}
         </div>
     );

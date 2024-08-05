@@ -43,7 +43,7 @@ const PieChart3D = ({ data, id }) => {
         };
     }, [data]);
 
-    return <div id={id} style={{ width: "100%", height: "500px" }}></div>;
+    return <div id={id} style={{ width: "95%", height: "320px"}}></div>;
 };
 
 export default PieChart3D;

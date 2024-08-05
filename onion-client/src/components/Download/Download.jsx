@@ -2,6 +2,7 @@ import { useState } from "react";
 import { planilhaService } from "../../api/services/planilhaService";
 import { useStepContext } from "../../context/StepContext";
 import "./download.css";
+import analiseFoto from '/public/analise.png';
 
 export const Download = () => {
     const { nextStep } = useStepContext();
@@ -64,7 +65,13 @@ export const Download = () => {
 
             <div className="w-full lg:w-2/4">
                 <div>
-                    <div>image</div>
+                    <div>
+                        <img
+                            src={analiseFoto}
+                            className="image"
+                            alt="Download"
+                        />
+                    </div>
                 </div>
             </div>
         </div>

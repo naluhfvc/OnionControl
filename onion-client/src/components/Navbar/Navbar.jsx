@@ -15,11 +15,11 @@ const Navbar = () => {
                             Home
                         </Link>
                     </li>
-                    <li>
+                    {/* <li>
                         <Link to={"/Dashboard"} className="navbar-link">
                             Dashboard
                         </Link>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
         </nav>

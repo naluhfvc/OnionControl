@@ -37,3 +37,8 @@ export const processProductData = (data) => {
 
     return formattedData;
 };
+
+// Função para formatar valores como moeda brasileira
+export const formatCurrency = (value) => {
+    return `R$ ${parseFloat(value).toFixed(2).replace('.', ',')}`;
+};

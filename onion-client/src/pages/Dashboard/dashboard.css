@@ -1,0 +1,11 @@
+.content-dashboard {
+    @apply flex flex-col lg:flex-row justify-between gap-10 2xl:py-12;
+}
+
+.dashboard-title {
+    @apply text-3xl text-pink font-bold mb-3;
+}
+
+.dashboard-text {
+    @apply text-[18px] text-tartiary mb-5 text-[18px] text-tartiary mb-5;
+}

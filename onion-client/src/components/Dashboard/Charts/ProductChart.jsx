@@ -16,15 +16,20 @@ const ProductChart = () => {
         if (!loading && orderData) {
             processChartData();
         }
-    }, [orderData, loading]); 
+    }, [orderData, loading]);
 
-    if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
     return (
-        <div>
-            <h2>Pedidos por Produto</h2>
-            {loading? <p>Loading...</p> : <Pie data={chartData} id={"product-chart"} />}
+        <div className="mb-3">
+            {!loading && orderData && (
+                <>
+                    <h2 className="text-xl text-tartiary">
+                        Pedidos por Produto
+                    </h2>
+                    <Pie data={chartData} id={"product-chart"} />
+                </>
+            )}
         </div>
     );
 };
